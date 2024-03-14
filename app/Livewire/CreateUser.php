@@ -25,15 +25,8 @@ class CreateUser extends Component implements HasForms
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required(),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->required(),
-                Forms\Components\DateTimePicker::make('email_verified_at'),
-                Forms\Components\TextInput::make('password')
-                    ->password()
-                    ->required(),
+                Forms\Components\TextInput::make('name'),
+                Forms\Components\RichEditor::make('email'),
             ])
             ->statePath('data')
             ->model(User::class);
@@ -42,6 +35,8 @@ class CreateUser extends Component implements HasForms
     public function create(): void
     {
         $data = $this->form->getState();
+
+        dd($data);
 
         $record = User::create($data);
 
